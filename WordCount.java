@@ -41,11 +41,13 @@ public class WordCount {
 	}
 
 	public static void main(String[] args) throws Exception {
-		Configuration conf = new Configuration();
+		//Configuration conf = new Configuration();
 
-		Job job = new Job(conf, "wordcount");
+		//Job job = new Job(conf, "wordcount");
+		Job job = new Job(new Configuration)
 
-		job.setJarByClass(WordCount.class);
+		job.setJarByClass(/root/HadoopMapReduce/build/org/myorg/WordCount.class);
+
 
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
