@@ -46,12 +46,12 @@ public class Task2 {
 			//for(int num=0;num<dimension;num++){
 			//	dimVal = row*dimension + num;
 			//	region.set(dimVal.toString());
-				output.collect(region,contentA);
+				context.write(region,contentA);
 			//}
 			//for(int num=0;num<dimension;num++){
 			//	dimVal = col + num * dimension;
 			//	region.set(dimVal.toString());
-				output.collect(region,contentB);
+				context.write(region,contentB);
 			//}
 		}
 	  }
@@ -107,7 +107,7 @@ public class Task2 {
 //						result += timeA + "," + timeB + "," + queryA +"," + queryB + "\n";
 						result = timeA + "," + userA +"," + userB;
 						Text record = new Text(result);
-						output.collect(nullText,record);
+						context.write(record, new Text());
 					}
 				}
 			}
