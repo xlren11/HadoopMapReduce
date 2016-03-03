@@ -44,7 +44,7 @@ public class WordCount {
 		//Configuration conf = new Configuration();
 
 		//Job job = new Job(conf, "wordcount");
-		Job job = new Job(new Configuration())
+		Job job = new Job(new Configuration());
 
 		job.setJarByClass(WordCount.class);
 

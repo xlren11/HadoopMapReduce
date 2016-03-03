@@ -46,7 +46,7 @@ public class Counting {
                 if (content[2].equals("1")) ++cnt3;
 			}
 			String info = "," + cnt1 + "," + cnt2 + "," + cnt3;
-			Text result = new Text()
+			Text result = new Text();
 			result.set(info);
 			context.write(key, result);
 			// int sum = 0;
@@ -61,7 +61,7 @@ public class Counting {
 		//Configuration conf = new Configuration();
 
 		//Job job = new Job(conf, "wordcount");
-		Job job = new Job(new Configuration())
+		Job job = new Job(new Configuration());
 
 		job.setJarByClass(Counting.class);
 
