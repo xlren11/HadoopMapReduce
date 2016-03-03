@@ -41,7 +41,7 @@ public class ThetaJoin {
 	public static class Reduce extends Reducer<Text, Text, Text, Text> {
 
 		public void reduce(Text key, Iterable<Text> values, Context context) 
-		throws IOException, InterruptedException {
+		throws IOException, InterruptedException, ParseException {
 
 			List<String> l1 = new ArrayList<String>();
 			List<String> l2 = new ArrayList<String>();
