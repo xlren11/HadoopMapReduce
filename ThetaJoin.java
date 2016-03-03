@@ -42,7 +42,7 @@ public class ThetaJoin {
 			ArrayList<String> l2 = new ArrayList<String>();
 			for (Text val: values) {
 				String content = val.toString();
-				if (content.charAt[0] == 'a') {
+				if (content.charAt(0) == 'a') {
 					l1.add(content);
 				}
 				else {
@@ -64,7 +64,7 @@ public class ThetaJoin {
 								if (set.contains(res) == false) {
 									result.set(res);
 									set.add(res);
-									context.write(result, nullText);
+									context.write(result, new Text());
 								}
 							}
 							else {
@@ -72,7 +72,7 @@ public class ThetaJoin {
 								if (set.contains(res) == false) {
 									result.set(res);
 									set.add(res);
-									context.write(result, nullText);
+									context.write(result, new Text());
 								}
 							}
 						}
