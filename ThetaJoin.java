@@ -50,7 +50,6 @@ public class ThetaJoin {
 				}
 			}
 			Text result = new Text();
-			Set<String> set = new HashSet<String>(); 
 			for (String s1: l1) {
 				for (String s2: l2) {
 					String[] data1 = s1.split(",");
@@ -59,22 +58,9 @@ public class ThetaJoin {
 						int t1 = Integer.parseInt(data1[1].split(":")[2]);
 						int t2 = Integer.parseInt(data2[1].split(":")[2]);
 						if (Math.abs(t1 - t2) < 2) {
-							if (Integer.parseInt(data1[2]) < Integer.parseInt(data2[2])) {
-								String res = data1[1] + data1[2] + data2[2];
-								if (set.contains(res) == false) {
-									result.set(res);
-									set.add(res);
-									context.write(result, new Text());
-								}
-							}
-							else {
-								String res = data2[1] + data2[2] + data1[2];
-								if (set.contains(res) == false) {
-									result.set(res);
-									set.add(res);
-									context.write(result, new Text());
-								}
-							}
+							String res = data1[1] + data1[2] + data2[2];
+							result.set(res);
+							context.write(result, new Text());
 						}
 					}
 				}
