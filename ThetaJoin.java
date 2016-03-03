@@ -45,7 +45,7 @@ public class ThetaJoin {
 				if (content.startsWith("A")) {
 					l1.add(content);
 				}
-				else {
+				else if (content.startsWith("B")){
 					l2.add(content);
 				}
 			}
@@ -56,7 +56,7 @@ public class ThetaJoin {
 					String[] data2 = l2.get(j).split(",");
 					String id1 = data1[2];
 
-					
+
 					String id2 = data2[2];
 					if (!id1.equals(id2)) {
 						int t1 = Integer.parseInt(data1[1].split(":")[2]);
