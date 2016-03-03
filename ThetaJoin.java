@@ -21,10 +21,10 @@ public class ThetaJoin {
 			Text k = new Text();
 			Text d1 = new Text();
 			Text d2 = new Text();
+			k.set("a");
 			if (content[3].equals("1")) {
 				String data1 = "A," + content[0] + "," + content[1];
 				String data2 = "B," + content[0] + "," + content[1];
-				k.set("1");
 				d1.set(data1);
 				d2.set(data2);
 				context.write(k, d1);
@@ -41,11 +41,11 @@ public class ThetaJoin {
 			List<String> l1 = new ArrayList<String>();
 			List<String> l2 = new ArrayList<String>();
 			for (Text val: values) {
-				String content = val.toString();
-				if (content.startsWith("A")) {
+				String data = val.toString();
+				if (content.charAt(0) == 'A') {
 					l1.add(content);
 				}
-				else if (content.startsWith("B")){
+				else {
 					l2.add(content);
 				}
 			}

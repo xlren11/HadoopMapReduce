@@ -31,8 +31,8 @@ public class HW4 {
 		String clicks = words[3];
 	  	Random generater = new Random();
 		if(clicks.equals( "1") ){
-			String messagesA = "A," + words[0] + "," + words[1] + "," + words[19];
-			String messagesB = "B," + words[0] + "," + words[1] + "," + words[19];
+			String messagesA = "A," + words[0] + "," + words[1];
+			String messagesB = "B," + words[0] + "," + words[1];
 //			int row = (int)(Math.random() * dimension);
 //			int col = (int)(Math.random() * dimension);
 //			int row = (int)(generater.nextDouble()  * dimension);
@@ -77,7 +77,7 @@ public class HW4 {
 			String [] numberA = contentA.split(",");
 			String timeA = numberA[1];
 			String userA = numberA[2];
-			String queryA = numberA[3];
+			//String queryA = numberA[3];
 			Date dateA =  new Date();//new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
 			Date dateB =  new Date();//SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
 			try{
@@ -91,7 +91,7 @@ public class HW4 {
 				String [] numberB = contentB.split(",");
 				String timeB = numberB[1];
 				String userB = numberB[2];
-				String queryB = numberB[3];
+				//String queryB = numberB[3];
 				if(!userA.equals(userB) ){
 					try{
 						dateB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeB);
@@ -103,7 +103,7 @@ public class HW4 {
 					long timeDiff = Math.abs(dateA.getTime() - dateB.getTime())/1000;
 					if(timeDiff < 2 ){
 //						result += timeA + "," + timeB + "," + queryA +"," + queryB + "\n";
-						result = timeA + "," + queryA +"," + queryB;
+						result = timeA + "," + userA +"," + userB;
 						Text record = new Text(result);
 						output.collect(nullText,record);
 					}
