@@ -55,6 +55,8 @@ public class ThetaJoin {
 				for (int j = 0; j < l2.size(); ++j) {
 					String[] data2 = l2.get(j).split(",");
 					String id1 = data1[2];
+
+					
 					String id2 = data2[2];
 					if (!id1.equals(id2)) {
 						int t1 = Integer.parseInt(data1[1].split(":")[2]);
