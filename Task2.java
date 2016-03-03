@@ -102,7 +102,7 @@ public class Task2 {
 					//}
 //					Date dateB = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss").parse(timeB);
 					//long timeDiff = Math.abs(dateA.getTime() - dateB.getTime())/1000;
-					int long timeDiff = Math.abs(timaA - timb)
+					int long timeDiff = Math.abs(timaA - timb);
 					if(timeDiff < 2 ){
 //						result += timeA + "," + timeB + "," + queryA +"," + queryB + "\n";
 						result = timeA + "," + userA +"," + userB;

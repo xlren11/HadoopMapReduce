@@ -14,14 +14,14 @@ import java.text.ParseException;
 // Build a 100 times 100 matrix
 // There are 10000 reducers, enough for HW4
 
-public class HW4 {
-	public static class Map extends MapReduceBase implements Mapper<LongWritable, Text, Text, Text> {
+public class Task2 {
+	public static class Map extends Mapper<LongWritable, Text, Text, Text> {
 //	  private Text region = new Text();
 //	  private Text contentA = new Text();
 //	  private Text contentB = new Text();
 //	  private int dimension = 25;
 //	  Random generater = new Random();
-	  public void map(LongWritable key, Text value, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
+	  public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 	  	Text region = new Text();
 		Text contentA = new Text();
 		Text contentB = new Text();
@@ -57,11 +57,11 @@ public class HW4 {
 	  }
 	}
 
-	public static class Reduce extends MapReduceBase implements Reducer<Text, Text, Text, Text> {
+	public static class Reduce extends Reducer<Text, Text, Text, Text> {
 //	  private ArrayList<String> AList = new ArrayList<String>() ;
 //	  private ArrayList<String> BList = new ArrayList<String>() ;
 //	  @override
-	  public void reduce(Text key, Iterator<Text> values, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
+	  public void reduce(Text key, Iterator<Text> values, Context context) throws IOException, InterruptedException{
 	  	ArrayList<String> AList = new ArrayList<String>() ;
 		ArrayList<String> BList = new ArrayList<String>() ;
 		Text nullText = new Text();
@@ -76,32 +76,33 @@ public class HW4 {
 		for(int i=0;i<ASize; i++){
 			String contentA = AList.get(i);
 			String [] numberA = contentA.split(",");
-			String timeA = numberA[1];
+			String timeA = numberA[1].split(":")[2];
 			String userA = numberA[2];
 			//String queryA = numberA[3];
-			Date dateA =  new Date();//new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
-			Date dateB =  new Date();//SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
-			try{
-				dateA = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeA);
-			}
-			catch(ParseException pe){
-				System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
-			}
+			//Date dateA =  new Date();//new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
+			//Date dateB =  new Date();//SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
+			//try{
+			//	dateA = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeA);
+			//}
+			//catch(ParseException pe){
+			//	System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
+			//}
 			for(int j=0;j<BSize; j++){
 				String contentB = BList.get(j);
 				String [] numberB = contentB.split(",");
-				String timeB = numberB[1];
+				String timeB = numberB[1].split(":")[2];
 				String userB = numberB[2];
 				//String queryB = numberB[3];
 				if(!userA.equals(userB) ){
-					try{
-						dateB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeB);
-					}
-					catch(ParseException pe){
-						System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
-					}
+					//try{
+						//dateB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeB);
+					//}
+					//catch(ParseException pe){
+					//	System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
+					//}
 //					Date dateB = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss").parse(timeB);
-					long timeDiff = Math.abs(dateA.getTime() - dateB.getTime())/1000;
+					//long timeDiff = Math.abs(dateA.getTime() - dateB.getTime())/1000;
+					int long timeDiff = Math.abs(timaA - timb)
 					if(timeDiff < 2 ){
 //						result += timeA + "," + timeB + "," + queryA +"," + queryB + "\n";
 						result = timeA + "," + userA +"," + userB;
@@ -118,27 +119,45 @@ public class HW4 {
 	}
 
 	public static void main(String[] args) throws Exception {
-		long startTime = System.currentTimeMillis();
+		//long startTime = System.currentTimeMillis();
+		Job job = new Job(new Configuration());
 
-	  JobConf conf = new JobConf(HW4.class);
-	  conf.setJobName("HW4ThetaJoin");
+		job.setJarByClass(ThetaJoin.class);
 
-	  conf.setOutputKeyClass(Text.class);
-	  conf.setOutputValueClass(Text.class);
 
-	  conf.setMapperClass(Map.class);
-//	  conf.setCombinerClass(Reduce.class);
-	  conf.setReducerClass(Reduce.class);
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(Text.class);
 
-	  conf.setInputFormat(TextInputFormat.class);
-	  conf.setOutputFormat(TextOutputFormat.class);
+		job.setMapperClass(Map.class);
+		job.setReducerClass(Reduce.class);
 
-	  FileInputFormat.setInputPaths(conf, new Path(args[0]));
-	  FileOutputFormat.setOutputPath(conf, new Path(args[1]));
+		job.setInputFormatClass(TextInputFormat.class);
+		job.setOutputFormatClass(TextOutputFormat.class);
 
-	  JobClient.runJob(conf);
-		long endTime   = System.currentTimeMillis();
-		long totalTime = endTime - startTime;
-		System.out.println(totalTime/1000.0);
+		FileInputFormat.addInputPath(job, new Path(args[0]));
+		FileOutputFormat.setOutputPath(job, new Path(args[1]));
+
+		job.waitForCompletion(true);
+
+// 	  JobConf conf = new JobConf(HW4.class);
+// 	  conf.setJobName("HW4ThetaJoin");
+
+// 	  conf.setOutputKeyClass(Text.class);
+// 	  conf.setOutputValueClass(Text.class);
+
+// 	  conf.setMapperClass(Map.class);
+// //	  conf.setCombinerClass(Reduce.class);
+// 	  conf.setReducerClass(Reduce.class);
+
+// 	  conf.setInputFormat(TextInputFormat.class);
+// 	  conf.setOutputFormat(TextOutputFormat.class);
+
+// 	  FileInputFormat.setInputPaths(conf, new Path(args[0]));
+// 	  FileOutputFormat.setOutputPath(conf, new Path(args[1]));
+
+// 	  JobClient.runJob(conf);
+// 		long endTime   = System.currentTimeMillis();
+// 		long totalTime = endTime - startTime;
+// 		System.out.println(totalTime/1000.0);
 	}
 }
