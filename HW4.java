@@ -29,7 +29,8 @@ public class HW4 {
 		String line = value.toString();
 		String [] words = line.split(",");
 		String clicks = words[3];
-	  	Random generater = new Random();
+		region.set("A");
+	  	//Random generater = new Random();
 		if(clicks.equals( "1") ){
 			String messagesA = "A," + words[0] + "," + words[1];
 			String messagesB = "B," + words[0] + "," + words[1];
@@ -37,21 +38,21 @@ public class HW4 {
 //			int col = (int)(Math.random() * dimension);
 //			int row = (int)(generater.nextDouble()  * dimension);
 //			int col = (int)(generater.nextDouble()  * dimension);
-			int row = (int)(generater.nextInt( dimension));
-			int col = (int)(generater.nextInt( dimension));
-			Integer dimVal;
+			//int row = (int)(generater.nextInt( dimension));
+			//int col = (int)(generater.nextInt( dimension));
+			//Integer dimVal;
 			contentA.set(messagesA);
 			contentB.set(messagesB);
-			for(int num=0;num<dimension;num++){
-				dimVal = row*dimension + num;
-				region.set(dimVal.toString());
+			//for(int num=0;num<dimension;num++){
+			//	dimVal = row*dimension + num;
+			//	region.set(dimVal.toString());
 				output.collect(region,contentA);
-			}
-			for(int num=0;num<dimension;num++){
-				dimVal = col + num * dimension;
-				region.set(dimVal.toString());
+			//}
+			//for(int num=0;num<dimension;num++){
+			//	dimVal = col + num * dimension;
+			//	region.set(dimVal.toString());
 				output.collect(region,contentB);
-			}
+			//}
 		}
 	  }
 	}
