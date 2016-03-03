@@ -47,11 +47,11 @@ public class ThetaJoin {
 			List<String> l2 = new ArrayList<String>();
 			for (Text val: values) {
 				String data = val.toString();
-				if (content.charAt(0) == 'x') {
-					l1.add(content);
+				if (data.charAt(0) == 'x') {
+					l1.add(data);
 				}
 				else {
-					l2.add(content);
+					l2.add(data);
 				}
 			}
 			Text result = new Text();
@@ -62,12 +62,12 @@ public class ThetaJoin {
 					String id1 = d1[2];
 					String id2 = d2[2];
 					if (!id1.equals(id2)) {
-						Date dateA = new Date();
-						Date dateB = new Date();
-						dateA = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(d1[1]);
-						dateB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(d2[1]);
-						if (Math.abs(dateA.getTime() - dateB.getTime()) / 1000 < 2){
-							String res = data1[1] + "," + data1[2] + "," + data2[2] + ",";
+						Date date1 = new Date();
+						Date date2 = new Date();
+						date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(d1[1]);
+						date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(d2[1]);
+						if (Math.abs(date1.getTime() - date2.getTime()) / 1000 < 2){
+							String res = d1[1] + "," + d1[2] + "," + d2[2] + ",";
 							result.set(res);
 							context.write(result, new Text());
 						}
