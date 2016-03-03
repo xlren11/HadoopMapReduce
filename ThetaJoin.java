@@ -131,7 +131,7 @@ public class ThetaJoin {
 						long timeDiff = Math.abs(timaA - timb);
 						if(timeDiff < 2 ){
 	//						result += timeA + "," + timeB + "," + queryA +"," + queryB + "\n";
-							result += timeA + "," + userA +"," + userB; + "\n";
+							result += timeA + "," + userA +"," + userB + "\n";
 							Text record = new Text(result);
 							context.write(record, new Text());
 						}
