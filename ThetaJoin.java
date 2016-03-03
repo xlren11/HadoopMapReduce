@@ -11,6 +11,11 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.Date;
+
 
 public class ThetaJoin {
 
@@ -23,8 +28,8 @@ public class ThetaJoin {
 			Text d2 = new Text();
 			k.set("a");
 			if (content[3].equals("1")) {
-				String data1 = "A," + content[0] + "," + content[1];
-				String data2 = "B," + content[0] + "," + content[1];
+				String data1 = "x," + content[0] + "," + content[1];
+				String data2 = "y," + content[0] + "," + content[1];
 				d1.set(data1);
 				d2.set(data2);
 				context.write(k, d1);
@@ -42,7 +47,7 @@ public class ThetaJoin {
 			List<String> l2 = new ArrayList<String>();
 			for (Text val: values) {
 				String data = val.toString();
-				if (content.charAt(0) == 'A') {
+				if (content.charAt(0) == 'x') {
 					l1.add(content);
 				}
 				else {
@@ -50,19 +55,19 @@ public class ThetaJoin {
 				}
 			}
 			Text result = new Text();
-			for (int i = 0; i < l1.size(); ++i) {
-				String[] data1 = l1.get(i).split(",");
-				for (int j = 0; j < l2.size(); ++j) {
-					String[] data2 = l2.get(j).split(",");
-					String id1 = data1[2];
-
-
-					String id2 = data2[2];
+			for (String s: l1) {
+				for (String q: l2) {
+					String[] d1 = s.split(",");
+					String[] d2 = q.split(",");
+					String id1 = d1[2];
+					String id2 = d2[2];
 					if (!id1.equals(id2)) {
-						int t1 = Integer.parseInt(data1[1].split(":")[2]);
-						int t2 = Integer.parseInt(data2[1].split(":")[2]);
-						if (Math.abs(t1 - t2) < 2) {
-							String res = data1[1] + data1[2] + data2[2];
+						Date dateA = new Date();
+						Date dateB = new Date();
+						dateA = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(d1[1]);
+						dateB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(d2[1]);
+						if (Math.abs(dateA.getTime() - dateB.getTime()) / 1000 < 2){
+							String res = data1[1] + "," + data1[2] + "," + data2[2] + ",";
 							result.set(res);
 							context.write(result, new Text());
 						}
