@@ -44,9 +44,9 @@ public class WordCount {
 		//Configuration conf = new Configuration();
 
 		//Job job = new Job(conf, "wordcount");
-		Job job = new Job(new Configuration)
+		Job job = new Job(new Configuration())
 
-		job.setJarByClass(/root/HadoopMapReduce/build/org/myorg/WordCount.class);
+		job.setJarByClass(WordCount.class);
 
 
 		job.setOutputKeyClass(Text.class);
