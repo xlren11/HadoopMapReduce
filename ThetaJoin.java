@@ -42,7 +42,7 @@ public class ThetaJoin {
 			List<String> l2 = new ArrayList<String>();
 			for (Text val: values) {
 				String content = val.toString();
-				if (content.startsWith("A") {
+				if (content.startsWith("A")) {
 					l1.add(content);
 				}
 				else {
