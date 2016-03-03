@@ -15,22 +15,15 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 public class Counting {
 
 	public static class Map extends Mapper<LongWritable, Text, Text, Text> {
-		//private final static IntWritable one = new IntWritable(1);
 		private Text word = new Text();
 		private Text collection = new Text();
 
 		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-			//String line = value.toString();
 			String[] content = value.toString().split(",");
 			String info = content[2] + "," + content[3] + "," + content[4];
 			word.set(content[5]);
 			collection.set(info);
 			context.write(word, collection);
-			// StringTokenizer tokenizer = new StringTokenizer(line);
-			// while (tokenizer.hasMoreTokens()) {
-			// 	word.set(tokenizer.nextToken());
-			// 	context.write(word, one);
-			// }
 		}
 	} 
 
@@ -49,18 +42,11 @@ public class Counting {
 			Text result = new Text();
 			result.set(info);
 			context.write(key, result);
-			// int sum = 0;
-			// for (IntWritable val : values) {
-			// 	sum += val.get();
-			// }
-			// context.write(key, new IntWritable(sum));
 		}
 	}
 
 	public static void main(String[] args) throws Exception {
-		//Configuration conf = new Configuration();
 
-		//Job job = new Job(conf, "wordcount");
 		Job job = new Job(new Configuration());
 
 		job.setJarByClass(Counting.class);
@@ -68,7 +54,6 @@ public class Counting {
 
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Text.class);
-		//job.setOutputValueClass(IntWritable.class);
 
 		job.setMapperClass(Map.class);
 		job.setReducerClass(Reduce.class);
