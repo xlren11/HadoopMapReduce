@@ -101,8 +101,8 @@ public class ThetaJoin {
 			ArrayList<String> AList = new ArrayList<String>() ;
 			ArrayList<String> BList = new ArrayList<String>() ;
 			Text nullText = new Text();
-			while (values.hasNext()) {
-				String content = values.next().toString();
+			for (Text val: values) {
+				String content = val.toString();
 				if(content.charAt(0) == 'A') AList.add(content);
 				else BList.add(content);
 			}
@@ -114,10 +114,18 @@ public class ThetaJoin {
 				String [] numberA = contentA.split(",");
 				String timeA = numberA[1].split(":")[2];
 				String userA = numberA[2];
+				Date dateA =  new Date();//new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
+			    Date dateB =  new Date();//SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
+			    try{
+					dateA = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeA);
+				}
+				catch(ParseException pe){
+					System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
+				}
 				for(int j=0;j<BSize; j++){
 					String contentB = BList.get(j);
 					String [] numberB = contentB.split(",");
-					String timeB = numberB[1].split(":")[2];
+					String timeB = numberB[1];
 					String userB = numberB[2];
 					if(!userA.equals(userB) ){
 						try{
@@ -126,9 +134,9 @@ public class ThetaJoin {
 						catch(ParseException pe){
 							System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
 						}
-						Date dateB = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss").parse(timeB);
+						//Date dateB = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss").parse(timeB);
 						long timeDiff = Math.abs(dateA.getTime() - dateB.getTime())/1000;
-						long timeDiff = Math.abs(timaA - timb);
+						//long timeDiff = Math.abs(timaA - timb);
 						if(timeDiff < 2 ){
 	//						result += timeA + "," + timeB + "," + queryA +"," + queryB + "\n";
 							result += timeA + "," + userA +"," + userB + "\n";
