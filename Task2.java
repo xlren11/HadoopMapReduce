@@ -21,11 +21,6 @@ import java.text.ParseException;
 
 public class Task2 {
 	public static class Map extends Mapper<LongWritable, Text, Text, Text> {
-//	  private Text region = new Text();
-//	  private Text contentA = new Text();
-//	  private Text contentB = new Text();
-//	  private int dimension = 25;
-//	  Random generater = new Random();
 	  public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 	  	Text region = new Text();
 		Text contentA = new Text();
@@ -35,37 +30,19 @@ public class Task2 {
 		String [] words = line.split(",");
 		String clicks = words[3];
 		region.set("A");
-	  	//Random generater = new Random();
 		if(clicks.equals( "1") ){
 			String messagesA = "A," + words[0] + "," + words[1];
 			String messagesB = "B," + words[0] + "," + words[1];
-//			int row = (int)(Math.random() * dimension);
-//			int col = (int)(Math.random() * dimension);
-//			int row = (int)(generater.nextDouble()  * dimension);
-//			int col = (int)(generater.nextDouble()  * dimension);
-			//int row = (int)(generater.nextInt( dimension));
-			//int col = (int)(generater.nextInt( dimension));
-			//Integer dimVal;
 			contentA.set(messagesA);
 			contentB.set(messagesB);
-			//for(int num=0;num<dimension;num++){
-			//	dimVal = row*dimension + num;
-			//	region.set(dimVal.toString());
-				context.write(region,contentA);
-			//}
-			//for(int num=0;num<dimension;num++){
-			//	dimVal = col + num * dimension;
-			//	region.set(dimVal.toString());
-				context.write(region,contentB);
-			//}
+			context.write(region,contentA);
+			context.write(region,contentB);
 		}
 	  }
 	}
 
 	public static class Reduce extends Reducer<Text, Text, Text, Text> {
-//	  private ArrayList<String> AList = new ArrayList<String>() ;
-//	  private ArrayList<String> BList = new ArrayList<String>() ;
-//	  @override
+
 	  public void reduce(Text key, Iterator<Text> values, Context context) throws IOException, InterruptedException{
 	  	ArrayList<String> AList = new ArrayList<String>() ;
 		ArrayList<String> BList = new ArrayList<String>() ;
@@ -83,34 +60,24 @@ public class Task2 {
 			String [] numberA = contentA.split(",");
 			String timeA = numberA[1].split(":")[2];
 			String userA = numberA[2];
-			//String queryA = numberA[3];
-			//Date dateA =  new Date();//new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
-			//Date dateB =  new Date();//SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
-			//try{
-			//	dateA = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeA);
-			//}
-			//catch(ParseException pe){
-			//	System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
-			//}
 			for(int j=0;j<BSize; j++){
 				String contentB = BList.get(j);
 				String [] numberB = contentB.split(",");
 				String timeB = numberB[1].split(":")[2];
 				String userB = numberB[2];
-				//String queryB = numberB[3];
 				if(!userA.equals(userB) ){
-					//try{
-						//dateB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeB);
-					//}
-					//catch(ParseException pe){
-					//	System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
-					//}
-//					Date dateB = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss").parse(timeB);
-					//long timeDiff = Math.abs(dateA.getTime() - dateB.getTime())/1000;
+					try{
+						dateB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeB);
+					}
+					catch(ParseException pe){
+						System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
+					}
+					Date dateB = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss").parse(timeB);
+					long timeDiff = Math.abs(dateA.getTime() - dateB.getTime())/1000;
 					long timeDiff = Math.abs(timaA - timb);
 					if(timeDiff < 2 ){
 //						result += timeA + "," + timeB + "," + queryA +"," + queryB + "\n";
-						result = timeA + "," + userA +"," + userB;
+						result += timeA + "," + userA +"," + userB; + "\n";
 						Text record = new Text(result);
 						context.write(record, new Text());
 					}
