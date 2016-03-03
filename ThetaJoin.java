@@ -41,7 +41,7 @@ public class ThetaJoin {
 	public static class Reduce extends Reducer<Text, Text, Text, Text> {
 
 		public void reduce(Text key, Iterable<Text> values, Context context) 
-		throws IOException, InterruptedException, ParseException {
+		throws IOException, InterruptedException{
 
 			List<String> l1 = new ArrayList<String>();
 			List<String> l2 = new ArrayList<String>();
@@ -64,8 +64,14 @@ public class ThetaJoin {
 					if (!id1.equals(id2)) {
 						Date date1 = new Date();
 						Date date2 = new Date();
-						date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(d1[1]);
-						date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(d2[1]);
+						try {
+							date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(d1[1]);
+						}
+						catch(ParseException e) {}
+						try {
+							date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(d2[1]);
+						}
+						catch(ParseException e) {}
 						if (Math.abs(date1.getTime() - date2.getTime()) / 1000 < 2){
 							String res = d1[1] + "," + d1[2] + "," + d2[2] + ",";
 							result.set(res);
