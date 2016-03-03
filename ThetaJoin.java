@@ -50,12 +50,13 @@ public class ThetaJoin {
 				}
 			}
 			Text result = new Text();
-			for (String s1: l1) {
-				String[] data1 = s1.split(",");
-				for (String s2: l2) {
-					String[] data2 = s2.split(",");
-
-					if (!data1[2].equals(data2[2])) {
+			for (int i = 0; i < l1.size(); ++i) {
+				String[] data1 = l1.get(i).split(",");
+				for (int j = 0; j < l2.size(); ++j) {
+					String[] data2 = l2.get(j).split(",");
+					String id1 = data1[2];
+					String id2 = data2[2];
+					if (!id1.equals(id2)) {
 						int t1 = Integer.parseInt(data1[1].split(":")[2]);
 						int t2 = Integer.parseInt(data2[1].split(":")[2]);
 						if (Math.abs(t1 - t2) < 2) {
