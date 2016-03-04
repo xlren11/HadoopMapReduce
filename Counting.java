@@ -38,10 +38,9 @@ public class Counting {
                 if (content[1].equals("1")) ++cnt2;
                 if (content[2].equals("1")) ++cnt3;
 			}
-			String info = "," + cnt1 + "," + cnt2 + "," + cnt3;
-			Text result = new Text();
-			result.set(info);
-			context.write(key, result);
+			String info = key.toString() + "," + cnt1 + "," + cnt2 + "," + cnt3;
+
+			context.write(new Text(info), new Text());
 		}
 	}
 
