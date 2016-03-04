@@ -71,13 +71,14 @@ public class HW4 {
 	  	ArrayList<String> AList = new ArrayList<String>() ;
 		ArrayList<String> BList = new ArrayList<String>() ;
 		Text nullText = new Text();
-		while (values.hasNext()) {
-			output.collect(nullText,record);
-
-			// String content = values.next().toString();
-			// if(content.charAt(0) == 'A') AList.add(content);
-			// else BList.add(content);
+		for (Text val: values) {
+			output.collect(nullText,val);
 		}
+		// while (values.hasNext()) {
+		// 	String content = values.next().toString();
+		// 	if(content.charAt(0) == 'A') AList.add(content);
+		// 	else BList.add(content);
+		// }
 // 		int ASize = AList.size();
 // 		int BSize = BList.size();
 // 		String result = new String();
