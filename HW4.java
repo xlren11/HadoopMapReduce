@@ -36,7 +36,7 @@ public class HW4 {
 		String [] words = line.split(",");
 		String clicks = words[3];
 	  	Random generater = new Random();
-		if(clicks.equals( "1") && !word[1].isEmpty()){
+		if(clicks.equals( "1") && !words[1].isEmpty()){
 			String messagesA = "A," + words[0] + "," + words[1];
 			String messagesB = "B," + words[0] + "," + words[1];
 //			int row = (int)(Math.random() * dimension);
