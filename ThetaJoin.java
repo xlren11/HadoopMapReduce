@@ -15,7 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
-public class Thetajoin {
+public class ThetaJoin {
 	public static class Map extends Mapper<LongWritable, Text, Text, Text> {
 	    public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {		
 			String [] words = value.toString().split(",");
@@ -69,7 +69,7 @@ public class Thetajoin {
 	public static void main(String[] args) throws Exception {
 		Job job = new Job(new Configuration());
 
-		job.setJarByClass(Thetajoin.class);
+		job.setJarByClass(ThetaJoin.class);
 
 
 		job.setOutputKeyClass(Text.class);
