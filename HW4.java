@@ -52,7 +52,7 @@ public class HW4 {
 			region.set("AAA");
 
 			context.write(region, contentA);
-			context.write(region, contentA);
+			context.write(region, contentB);
 
 
 			// for(int num=0;num<dimension;num++){
