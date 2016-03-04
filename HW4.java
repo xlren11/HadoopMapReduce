@@ -74,8 +74,10 @@ public class HW4 {
 		// for (Text val: values) {
 		// 	output.collect(nullText,val);
 		// }
-		while (values.hasNext()) {
-			String content = values.next().toString();
+		//while (values.hasNext()) {
+		for (Text val: values) {
+			String content = val.toString();
+			//String content = values.next().toString();
 			if(content.charAt(0) == 'A') AList.add(content);
 			else BList.add(content);
 		}
