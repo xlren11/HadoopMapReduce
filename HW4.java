@@ -43,22 +43,22 @@ public class HW4 {
 			contentA.set(messagesA);
 			contentB.set(messagesB);
 
-			region.set("AAA");
+			// region.set("AAA");
 
-			output.collect(region, contentA);
-			output.collect(region, contentA);
+			// output.collect(region, contentA);
+			// output.collect(region, contentA);
 
 
-			// for(int num=0;num<dimension;num++){
-			// 	dimVal = row*dimension + num;
-			// 	region.set(dimVal.toString());
-			// 	output.collect(region,contentA);
-			// }
-			// for(int num=0;num<dimension;num++){
-			// 	dimVal = col + num * dimension;
-			// 	region.set(dimVal.toString());
-			// 	output.collect(region,contentB);
-			//}
+			for(int num=0;num<dimension;num++){
+				dimVal = row*dimension + num;
+				region.set(dimVal.toString());
+				output.collect(region,contentA);
+			}
+			for(int num=0;num<dimension;num++){
+				dimVal = col + num * dimension;
+				region.set(dimVal.toString());
+				output.collect(region,contentB);
+			}
 		}
 	  }
 	}
@@ -67,60 +67,60 @@ public class HW4 {
 //	  private ArrayList<String> AList = new ArrayList<String>() ;
 //	  private ArrayList<String> BList = new ArrayList<String>() ;
 //	  @override
-	  public void reduce(Text key, Iterator<Text> values, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
+	  public void reduce(Text key, Iterable<Text> values, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
 	  	ArrayList<String> AList = new ArrayList<String>() ;
 		ArrayList<String> BList = new ArrayList<String>() ;
 		Text nullText = new Text();
-		for (Text val: values) {
-			output.collect(nullText,val);
-		}
-		// while (values.hasNext()) {
-		// 	String content = values.next().toString();
-		// 	if(content.charAt(0) == 'A') AList.add(content);
-		// 	else BList.add(content);
+		// for (Text val: values) {
+		// 	output.collect(nullText,val);
 		// }
-// 		int ASize = AList.size();
-// 		int BSize = BList.size();
-// 		String result = new String();
-// 		for(int i=0;i<ASize; i++){
-// 			String contentA = AList.get(i);
-// 			String [] numberA = contentA.split(",");
-// 			String timeA = numberA[1];
-// 			String userA = numberA[2];
-// 			String queryA = numberA[3];
-// 			Date dateA =  new Date();//new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
-// 			Date dateB =  new Date();//SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
-// 			try{
-// 				dateA = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeA);
-// 			}
-// 			catch(ParseException pe){
-// 				System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
-// 			}
-// 			for(int j=0;j<BSize; j++){
-// 				String contentB = BList.get(j);
-// 				String [] numberB = contentB.split(",");
-// 				String timeB = numberB[1];
-// 				String userB = numberB[2];
-// 				String queryB = numberB[3];
-// 				if(!userA.equals(userB) ){
-// 					try{
-// 						dateB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeB);
-// 					}
-// 					catch(ParseException pe){
-// 						System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
-// 					}
-// //					Date dateB = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss").parse(timeB);
-// 					long timeDiff = Math.abs(dateA.getTime() - dateB.getTime())/1000;
-// 					if(timeDiff < 2 ){
-// //						result += timeA + "," + timeB + "," + queryA +"," + queryB + "\n";
-// 						result = timeA + "," + userA +"," + userB;
-// 						//result = timeA + "," + queryA +"," + queryB;
-// 						Text record = new Text(result);
-// 						output.collect(nullText,record);
-// 					}
-// 				}
-// 			}
-// 		}
+		while (values.hasNext()) {
+			String content = values.next().toString();
+			if(content.charAt(0) == 'A') AList.add(content);
+			else BList.add(content);
+		}
+		int ASize = AList.size();
+		int BSize = BList.size();
+		String result = new String();
+		for(int i=0;i<ASize; i++){
+			String contentA = AList.get(i);
+			String [] numberA = contentA.split(",");
+			String timeA = numberA[1];
+			String userA = numberA[2];
+			String queryA = numberA[3];
+			Date dateA =  new Date();//new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
+			Date dateB =  new Date();//SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
+			try{
+				dateA = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeA);
+			}
+			catch(ParseException pe){
+				System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
+			}
+			for(int j=0;j<BSize; j++){
+				String contentB = BList.get(j);
+				String [] numberB = contentB.split(",");
+				String timeB = numberB[1];
+				String userB = numberB[2];
+				String queryB = numberB[3];
+				if(!userA.equals(userB) ){
+					try{
+						dateB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeB);
+					}
+					catch(ParseException pe){
+						System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
+					}
+//					Date dateB = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss").parse(timeB);
+					long timeDiff = Math.abs(dateA.getTime() - dateB.getTime())/1000;
+					if(timeDiff < 2 ){
+//						result += timeA + "," + timeB + "," + queryA +"," + queryB + "\n";
+						result = timeA + "," + userA +"," + userB;
+						//result = timeA + "," + queryA +"," + queryB;
+						Text record = new Text(result);
+						output.collect(nullText,record);
+					}
+				}
+			}
+		}
 
 //		Text record = new Text(result);
 //		output.collect(key, record);
