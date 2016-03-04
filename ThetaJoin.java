@@ -38,6 +38,7 @@ public class ThetaJoin {
 				if(content.charAt(0) == 'A') listA.add(content);
 				else listB.add(content);
 			}
+			Set<String> set = new HashSet<String>(); 
 			for (String strA: listA) {
 				for (String strB: listB) {
 					String [] dataA = strA.split(",");
@@ -57,8 +58,12 @@ public class ThetaJoin {
 						catch(ParseException pe){}
 						long diff = Math.abs(dateA.getTime() - dateB.getTime()) / 1000;
 						if (diff < 2 ){
-							String result = dataA[1] + "," + idA +"," + idB;
-							context.write(new Text(), new Text(result));
+							String result1 = dataA[1] + "," + idA +"," + idB;
+							String result2 = dataB[1] + "," + idB +"," + idA;
+							if (!set.contains(result2)) {
+								set.add(result1);
+								context.write(new Text(), new Text(result1));
+							}
 						}
 					}
 				}
