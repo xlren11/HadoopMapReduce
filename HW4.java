@@ -99,27 +99,30 @@ public class HW4 {
 		//String result = new String();
 		//for(int i=0;i<ASize; i++){
 		for (String strA: listA) {
-			//String contentA = AList.get(i);
-			String [] numberA = strA.split(",");
-			String timeA = numberA[1];
-			String userA = numberA[2];
-			//String queryA = numberA[3];
-			Date dateA =  new Date();//new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
-			Date dateB =  new Date();//SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
-			try{
-				dateA = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeA);
-			}
-			catch(ParseException pe){
-				System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
-			}
-			//for(int j=0;j<BSize; j++){
 			for (String strB: listB) {
+			//String contentA = AList.get(i);
+				String [] dataA = strA.split(",");
+				String [] dataB = strB.split(",");
+				// String ymdhA = dataA[1];
+				// String timeB = dataB[1];
+				String idA = dataA[2];
+				String idB = dataB[2];
+				if(!idA.equals(idB)){
+				//String queryA = numberA[3];
+					Date dateA =  new Date();//new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
+					Date dateB =  new Date();//SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
+					try{
+						dateA = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeA);
+					}
+					catch(ParseException pe){
+						System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
+					}
+			//for(int j=0;j<BSize; j++){
+			//for (String strB: listB) {
 				//String contentB = BList.get(j);
-				String [] numberB = strB.split(",");
-				String timeB = numberB[1];
-				String userB = numberB[2];
+
 				//String queryB = numberB[3];
-				if(!userA.equals(userB) ){
+				
 					try{
 						dateB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeB);
 					}
@@ -130,7 +133,7 @@ public class HW4 {
 					long timeDiff = Math.abs(dateA.getTime() - dateB.getTime())/1000;
 					if(timeDiff < 2 ){
 //						result += timeA + "," + timeB + "," + queryA +"," + queryB + "\n";
-						String result = timeA + "," + userA +"," + userB;
+						String result = dataA[1] + "," + idA +"," + idB;
 						//result = timeA + "," + queryA +"," + queryB;
 						//Text record = new Text(result);
 						//output.collect(nullText,record);
