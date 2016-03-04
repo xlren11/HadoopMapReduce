@@ -15,13 +15,14 @@ import java.text.ParseException;
 // There are 10000 reducers, enough for HW4
 
 public class HW4 {
-	public static class Map extends MapReduceBase implements Mapper<LongWritable, Text, Text, Text> {
+	public static class Map extends Mapper<LongWritable, Text, Text, Text> {
 //	  private Text region = new Text();
 //	  private Text contentA = new Text();
 //	  private Text contentB = new Text();
 //	  private int dimension = 25;
 //	  Random generater = new Random();
-	  public void map(LongWritable key, Text value, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
+	  public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {		
+	  //public void map(LongWritable key, Text value, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
 	  	Text region = new Text();
 		Text contentA = new Text();
 		Text contentB = new Text();
@@ -52,22 +53,24 @@ public class HW4 {
 			for(int num=0;num<dimension;num++){
 				dimVal = row*dimension + num;
 				region.set(dimVal.toString());
-				output.collect(region,contentA);
+				context.write(region, contentA);
+				//output.collect(region,contentA);
 			}
 			for(int num=0;num<dimension;num++){
 				dimVal = col + num * dimension;
 				region.set(dimVal.toString());
-				output.collect(region,contentB);
+				context.write(region, contentB);
+				//output.collect(region,contentB);
 			}
 		}
 	  }
 	}
 
-	public static class Reduce extends MapReduceBase implements Reducer<Text, Text, Text, Text> {
+	public static class Reduce extends Reducer<Text, Text, Text, Text> {
 //	  private ArrayList<String> AList = new ArrayList<String>() ;
 //	  private ArrayList<String> BList = new ArrayList<String>() ;
 //	  @override
-	  public void reduce(Text key, Iterable<Text> values, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
+	  public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 	  	ArrayList<String> AList = new ArrayList<String>() ;
 		ArrayList<String> BList = new ArrayList<String>() ;
 		Text nullText = new Text();
@@ -118,7 +121,9 @@ public class HW4 {
 						result = timeA + "," + userA +"," + userB;
 						//result = timeA + "," + queryA +"," + queryB;
 						Text record = new Text(result);
-						output.collect(nullText,record);
+						//output.collect(nullText,record);
+
+						context.write(nullText, record);
 					}
 				}
 			}
