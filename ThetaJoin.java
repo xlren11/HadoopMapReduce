@@ -37,8 +37,8 @@ public class ThetaJoin {
 			for (int i = 0; i < list.size(); ++i) {
 				for (int j = 0; j < list.size(); ++j) {
 					if (i == j) continue;
-					String [] dataA = list[i].split(",");
-					String [] dataB = list[j].split(",");
+					String [] dataA = list.get(i).split(",");
+					String [] dataB = list.get(j).split(",");
 					String idA = dataA[2];
 					String idB = dataB[2];
 					if (!idA.equals(idB)){
