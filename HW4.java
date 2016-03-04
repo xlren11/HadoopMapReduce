@@ -28,31 +28,35 @@ public class HW4 {
 //	  Random generater = new Random();
 	  public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {		
 	  //public void map(LongWritable key, Text value, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
-	  	Text region = new Text();
-		Text contentA = new Text();
-		Text contentB = new Text();
-		int dimension = 25;
-		String line = value.toString();
-		String [] words = line.split(",");
-		String clicks = words[3];
-	  	Random generater = new Random();
-		if(clicks.equals( "1") && !words[1].isEmpty()){
-			String messagesA = "A," + words[0] + "," + words[1];
-			String messagesB = "B," + words[0] + "," + words[1];
+	 //  	Text region = new Text();
+		// Text contentA = new Text();
+		// Text contentB = new Text();
+		//int dimension = 25;
+		//String line = value.toString();
+		String [] words = value.toString().split(",");
+		//String clicks = words[3];
+	  	//Random generater = new Random();
+		if(words[3].equals( "1") && !words[1].isEmpty()){
+			String dataA = "A," + words[0] + "," + words[1];
+			String dataB = "B," + words[0] + "," + words[1];
+			context.write(new Text("AAA"), new Text(dataA));
+			context.write(new Text("AAA"), new Text(dataB));
+
+
 //			int row = (int)(Math.random() * dimension);
 //			int col = (int)(Math.random() * dimension);
 //			int row = (int)(generater.nextDouble()  * dimension);
 //			int col = (int)(generater.nextDouble()  * dimension);
-			int row = (int)(generater.nextInt( dimension));
-			int col = (int)(generater.nextInt( dimension));
-			Integer dimVal;
-			contentA.set(messagesA);
-			contentB.set(messagesB);
+			// int row = (int)(generater.nextInt( dimension));
+			// int col = (int)(generater.nextInt( dimension));
+			// Integer dimVal;
+			// contentA.set(messagesA);
+			// contentB.set(messagesB);
 
-			region.set("AAA");
+			// region.set("AAA");
 
-			context.write(region, contentA);
-			context.write(region, contentB);
+			// context.write(region, contentA);
+			// context.write(region, contentB);
 
 
 			// for(int num=0;num<dimension;num++){
