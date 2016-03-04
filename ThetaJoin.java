@@ -20,10 +20,8 @@ public class ThetaJoin {
 	    public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {		
 			String [] words = value.toString().split(",");
 			if(words[3].equals( "1") && !words[1].isEmpty()){
-				String dataA = "A," + words[0] + "," + words[1];
-				String dataB = "B," + words[0] + "," + words[1];
-				context.write(new Text("AAA"), new Text(dataA));
-				context.write(new Text("AAA"), new Text(dataB));
+				String data = words[0] + "," + words[1];
+				context.write(new Text("AAA"), new Text(data));
 			}
 	  	}
 	}
@@ -31,18 +29,16 @@ public class ThetaJoin {
 	public static class Reduce extends Reducer<Text, Text, Text, Text> {
 
 		public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
-	  		ArrayList<String> listA = new ArrayList<String>() ;
-			ArrayList<String> listB = new ArrayList<String>() ;
+	  		ArrayList<String> list = new ArrayList<String>() ;
 			for (Text val: values) {
-				String content = val.toString();
-				if(content.charAt(0) == 'A') listA.add(content);
-				else listB.add(content);
+				list.add(val.toString());
 			}
-			Set<String> set = new HashSet<String>(); 
-			for (String strA: listA) {
-				for (String strB: listB) {
-					String [] dataA = strA.split(",");
-					String [] dataB = strB.split(",");
+			Set<String> set = new HashSet<String>();
+			for (int i = 0; i < list.size(); ++i) {
+				for (int j = 0; j < list.size(); ++j) {
+					if (i == j) continue;
+					String [] dataA = list[i].split(",");
+					String [] dataB = list[j].split(",");
 					String idA = dataA[2];
 					String idB = dataB[2];
 					if (!idA.equals(idB)){
