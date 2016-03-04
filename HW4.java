@@ -49,23 +49,23 @@ public class HW4 {
 			contentA.set(messagesA);
 			contentB.set(messagesB);
 
-			region.set("AAA");
+			// region.set("AAA");
 
-			context.write(region, contentA);
-			context.write(region, contentA);
+			// context.write(region, contentA);
+			// context.write(region, contentA);
 
 
-			// for(int num=0;num<dimension;num++){
-			// 	dimVal = row*dimension + num;
-			// 	region.set(dimVal.toString());
-			// 	context.write(region, contentA);
-			// 	//output.collect(region,contentA);
-			// }
-			// for(int num=0;num<dimension;num++){
-			// 	dimVal = col + num * dimension;
-			// 	region.set(dimVal.toString());
-			// 	context.write(region, contentB);
-			// 	//output.collect(region,contentB);
+			for(int num=0;num<dimension;num++){
+				dimVal = row*dimension + num;
+				region.set(dimVal.toString());
+				context.write(region, contentA);
+				//output.collect(region,contentA);
+			}
+			for(int num=0;num<dimension;num++){
+				dimVal = col + num * dimension;
+				region.set(dimVal.toString());
+				context.write(region, contentB);
+				//output.collect(region,contentB);
 			}
 		}
 	  }
