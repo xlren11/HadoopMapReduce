@@ -140,27 +140,45 @@ public class HW4 {
 	}
 
 	public static void main(String[] args) throws Exception {
-		long startTime = System.currentTimeMillis();
+// 		long startTime = System.currentTimeMillis();
 
-	  JobConf conf = new JobConf(HW4.class);
-	  conf.setJobName("HW4ThetaJoin");
+// 	  JobConf conf = new JobConf(HW4.class);
+// 	  conf.setJobName("HW4ThetaJoin");
 
-	  conf.setOutputKeyClass(Text.class);
-	  conf.setOutputValueClass(Text.class);
+// 	  conf.setOutputKeyClass(Text.class);
+// 	  conf.setOutputValueClass(Text.class);
 
-	  conf.setMapperClass(Map.class);
-//	  conf.setCombinerClass(Reduce.class);
-	  conf.setReducerClass(Reduce.class);
+// 	  conf.setMapperClass(Map.class);
+// //	  conf.setCombinerClass(Reduce.class);
+// 	  conf.setReducerClass(Reduce.class);
 
-	  conf.setInputFormat(TextInputFormat.class);
-	  conf.setOutputFormat(TextOutputFormat.class);
+// 	  conf.setInputFormat(TextInputFormat.class);
+// 	  conf.setOutputFormat(TextOutputFormat.class);
 
-	  FileInputFormat.setInputPaths(conf, new Path(args[0]));
-	  FileOutputFormat.setOutputPath(conf, new Path(args[1]));
+// 	  FileInputFormat.setInputPaths(conf, new Path(args[0]));
+// 	  FileOutputFormat.setOutputPath(conf, new Path(args[1]));
 
-	  JobClient.runJob(conf);
-		long endTime   = System.currentTimeMillis();
-		long totalTime = endTime - startTime;
-		System.out.println(totalTime/1000.0);
+// 	  JobClient.runJob(conf);
+// 		long endTime   = System.currentTimeMillis();
+// 		long totalTime = endTime - startTime;
+// 		System.out.println(totalTime/1000.0);
+		Job job = new Job(new Configuration());
+
+		job.setJarByClass(HW4.class);
+
+
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(Text.class);
+
+		job.setMapperClass(Map.class);
+		job.setReducerClass(Reduce.class);
+
+		job.setInputFormatClass(TextInputFormat.class);
+		job.setOutputFormatClass(TextOutputFormat.class);
+
+		FileInputFormat.addInputPath(job, new Path(args[0]));
+		FileOutputFormat.setOutputPath(job, new Path(args[1]));
+
+		job.waitForCompletion(true);
 	}
 }
