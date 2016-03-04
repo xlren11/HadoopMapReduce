@@ -41,36 +41,6 @@ public class HW4 {
 			String dataB = "B," + words[0] + "," + words[1];
 			context.write(new Text("AAA"), new Text(dataA));
 			context.write(new Text("AAA"), new Text(dataB));
-
-
-//			int row = (int)(Math.random() * dimension);
-//			int col = (int)(Math.random() * dimension);
-//			int row = (int)(generater.nextDouble()  * dimension);
-//			int col = (int)(generater.nextDouble()  * dimension);
-			// int row = (int)(generater.nextInt( dimension));
-			// int col = (int)(generater.nextInt( dimension));
-			// Integer dimVal;
-			// contentA.set(messagesA);
-			// contentB.set(messagesB);
-
-			// region.set("AAA");
-
-			// context.write(region, contentA);
-			// context.write(region, contentB);
-
-
-			// for(int num=0;num<dimension;num++){
-			// 	dimVal = row*dimension + num;
-			// 	region.set(dimVal.toString());
-			// 	context.write(region, contentA);
-			// 	//output.collect(region,contentA);
-			// }
-			// for(int num=0;num<dimension;num++){
-			// 	dimVal = col + num * dimension;
-			// 	region.set(dimVal.toString());
-			// 	context.write(region, contentB);
-			// 	//output.collect(region,contentB);
-			// }
 		}
 	  }
 	}
@@ -130,8 +100,8 @@ public class HW4 {
 						//System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
 					}
 //					Date dateB = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss").parse(timeB);
-					long timeDiff = Math.abs(dateA.getTime() - dateB.getTime())/1000;
-					if(timeDiff < 2 ){
+					long diff = Math.abs(dateA.getTime() - dateB.getTime()) / 1000;
+					if (diff < 2 ){
 //						result += timeA + "," + timeB + "," + queryA +"," + queryB + "\n";
 						String result = dataA[1] + "," + idA +"," + idB;
 						//result = timeA + "," + queryA +"," + queryB;
