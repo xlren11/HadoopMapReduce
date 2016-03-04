@@ -42,16 +42,21 @@ public class HW4 {
 			Integer dimVal;
 			contentA.set(messagesA);
 			contentB.set(messagesB);
-			for(int num=0;num<dimension;num++){
-				dimVal = row*dimension + num;
-				region.set(dimVal.toString());
-				output.collect(region,contentA);
-			}
-			for(int num=0;num<dimension;num++){
-				dimVal = col + num * dimension;
-				region.set(dimVal.toString());
-				output.collect(region,contentB);
-			}
+
+			output.collect(new Text("AA"), contentA);
+			output.collect(new Text("AA"), contentA);
+
+
+			// for(int num=0;num<dimension;num++){
+			// 	dimVal = row*dimension + num;
+			// 	region.set(dimVal.toString());
+			// 	output.collect(region,contentA);
+			// }
+			// for(int num=0;num<dimension;num++){
+			// 	dimVal = col + num * dimension;
+			// 	region.set(dimVal.toString());
+			// 	output.collect(region,contentB);
+			//}
 		}
 	  }
 	}
