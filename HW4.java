@@ -80,9 +80,9 @@ public class HW4 {
 //	  private ArrayList<String> BList = new ArrayList<String>() ;
 //	  @override
 	  public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
-	  	ArrayList<String> AList = new ArrayList<String>() ;
-		ArrayList<String> BList = new ArrayList<String>() ;
-		Text nullText = new Text();
+	  	ArrayList<String> listA = new ArrayList<String>() ;
+		ArrayList<String> listB = new ArrayList<String>() ;
+		//Text nullText = new Text();
 		// for (Text val: values) {
 		// 	String[] ss = val.toString().split(",");
 		// 	context.write(nullText,new Text(ss[2]));
@@ -91,15 +91,16 @@ public class HW4 {
 		for (Text val: values) {
 			String content = val.toString();
 			//String content = values.next().toString();
-			if(content.charAt(0) == 'A') AList.add(content);
-			else BList.add(content);
+			if(content.charAt(0) == 'A') listA.add(content);
+			else listB.add(content);
 		}
-		int ASize = AList.size();
-		int BSize = BList.size();
-		String result = new String();
-		for(int i=0;i<ASize; i++){
-			String contentA = AList.get(i);
-			String [] numberA = contentA.split(",");
+		//int ASize = AList.size();
+		//int BSize = BList.size();
+		//String result = new String();
+		//for(int i=0;i<ASize; i++){
+		for (String strA: listA) {
+			//String contentA = AList.get(i);
+			String [] numberA = strA.split(",");
 			String timeA = numberA[1];
 			String userA = numberA[2];
 			//String queryA = numberA[3];
@@ -111,9 +112,10 @@ public class HW4 {
 			catch(ParseException pe){
 				System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
 			}
-			for(int j=0;j<BSize; j++){
-				String contentB = BList.get(j);
-				String [] numberB = contentB.split(",");
+			//for(int j=0;j<BSize; j++){
+			for (String strB: listB) {
+				//String contentB = BList.get(j);
+				String [] numberB = strB.split(",");
 				String timeB = numberB[1];
 				String userB = numberB[2];
 				//String queryB = numberB[3];
@@ -128,12 +130,12 @@ public class HW4 {
 					long timeDiff = Math.abs(dateA.getTime() - dateB.getTime())/1000;
 					if(timeDiff < 2 ){
 //						result += timeA + "," + timeB + "," + queryA +"," + queryB + "\n";
-						result = timeA + "," + userA +"," + userB;
+						String result = timeA + "," + userA +"," + userB;
 						//result = timeA + "," + queryA +"," + queryB;
-						Text record = new Text(result);
+						//Text record = new Text(result);
 						//output.collect(nullText,record);
 
-						context.write(nullText, record);
+						context.write(new Text(), new Text(result));
 					}
 				}
 			}
