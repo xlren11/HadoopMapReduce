@@ -58,7 +58,7 @@ public class HW4 {
 						long diff = Math.abs(dateA.getTime() - dateB.getTime()) / 1000;
 						if (diff < 2 ){
 							String result = dataA[1] + "," + idA +"," + idB;
-							context.write(new Text(), new Text(result));
+							context.write(ew Text(result), new Text());
 						}
 					}
 				}
