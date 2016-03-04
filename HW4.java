@@ -43,8 +43,10 @@ public class HW4 {
 			contentA.set(messagesA);
 			contentB.set(messagesB);
 
-			output.collect(new Text("AA"), contentA);
-			output.collect(new Text("AA"), contentA);
+			region.set("AAA");
+
+			output.collect(region, contentA);
+			output.collect(region, contentA);
 
 
 			// for(int num=0;num<dimension;num++){
