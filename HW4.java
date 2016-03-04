@@ -112,10 +112,10 @@ public class HW4 {
 					Date dateA =  new Date();//new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
 					Date dateB =  new Date();//SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
 					try{
-						dateA = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeA);
+						dateA = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dataA[1]);
 					}
 					catch(ParseException pe){
-						System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
+						//System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
 					}
 			//for(int j=0;j<BSize; j++){
 			//for (String strB: listB) {
@@ -124,10 +124,10 @@ public class HW4 {
 				//String queryB = numberB[3];
 				
 					try{
-						dateB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeB);
+						dateB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dataB[1]);
 					}
 					catch(ParseException pe){
-						System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
+						//System.out.println("ERROR: could not parse date in string \"" + timeA + "\"");
 					}
 //					Date dateB = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss").parse(timeB);
 					long timeDiff = Math.abs(dateA.getTime() - dateB.getTime())/1000;
