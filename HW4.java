@@ -80,7 +80,7 @@ public class HW4 {
 		ArrayList<String> BList = new ArrayList<String>() ;
 		Text nullText = new Text();
 		for (Text val: values) {
-			Stirng[] ss = v.toString().split(",");
+			String[] ss = val.toString().split(",");
 			context.write(nullText,new Text(ss[2]));
 		}
 		//while (values.hasNext()) {
