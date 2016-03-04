@@ -37,8 +37,8 @@ public class HW4 {
 		String clicks = words[3];
 	  	Random generater = new Random();
 		if(clicks.equals( "1") ){
-			String messagesA = "A," + words[0] + "," + words[1] + "," + words[19];
-			String messagesB = "B," + words[0] + "," + words[1] + "," + words[19];
+			String messagesA = "A," + words[0] + "," + words[1];
+			String messagesB = "B," + words[0] + "," + words[1];
 //			int row = (int)(Math.random() * dimension);
 //			int col = (int)(Math.random() * dimension);
 //			int row = (int)(generater.nextDouble()  * dimension);
