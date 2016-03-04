@@ -103,7 +103,8 @@ public class HW4 {
 					long timeDiff = Math.abs(dateA.getTime() - dateB.getTime())/1000;
 					if(timeDiff < 2 ){
 //						result += timeA + "," + timeB + "," + queryA +"," + queryB + "\n";
-						result = timeA + "," + queryA +"," + queryB;
+						result = timeA + "," + userA +"," + userB;
+						//result = timeA + "," + queryA +"," + queryB;
 						Text record = new Text(result);
 						output.collect(nullText,record);
 					}
