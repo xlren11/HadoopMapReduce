@@ -39,23 +39,23 @@ public class ThetaJoin {
 					if (i == j) continue;
 					String [] dataA = list.get(i).split(",");
 					String [] dataB = list.get(j).split(",");
-					String idA = dataA[2];
-					String idB = dataB[2];
+					String idA = dataA[1];
+					String idB = dataB[1];
 					if (!idA.equals(idB)){
 						Date dateA =  new Date();
 						Date dateB =  new Date();
 						try {
-							dateA = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dataA[1]);
+							dateA = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dataA[0]);
 						}
 						catch(ParseException pe){}
 						try{ 
-							dateB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dataB[1]);
+							dateB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dataB[0]);
 						}
 						catch(ParseException pe){}
 						long diff = Math.abs(dateA.getTime() - dateB.getTime()) / 1000;
 						if (diff < 2 ){
-							String result1 = dataA[1] + "," + idA +"," + idB;
-							String result2 = dataB[1] + "," + idB +"," + idA;
+							String result1 = dataA[0] + "," + idA +"," + idB;
+							String result2 = dataB[0] + "," + idB +"," + idA;
 							if (!set.contains(result2)) {
 								set.add(result1);
 								context.write(new Text(), new Text(result1));
