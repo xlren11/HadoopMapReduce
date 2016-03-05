@@ -56,7 +56,7 @@ public class ThetaJoin {
 						long diff = Math.abs(dateA.getTime() - dateB.getTime()) / 1000;
 						if (diff < 2 ){
 							String result;
-							if （new BigInteger(idA).compareTo(new BigInteger(idB)) < 0) {
+							if ((new BigInteger(idA)).compareTo(new BigInteger(idB)) < 0) {
 								result = dataA[0] + "," + idA +"," + idB;
 							}
 							else {
