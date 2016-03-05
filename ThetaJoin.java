@@ -14,6 +14,7 @@ import org.apache.hadoop.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.math.BigInteger;
 
 public class ThetaJoin {
 	public static class Map extends Mapper<LongWritable, Text, Text, Text> {
@@ -54,11 +55,16 @@ public class ThetaJoin {
 						catch(ParseException pe){}
 						long diff = Math.abs(dateA.getTime() - dateB.getTime()) / 1000;
 						if (diff < 2 ){
-							String result1 = dataA[0] + "," + idA +"," + idB;
-							String result2 = dataB[0] + "," + idB +"," + idA;
-							if (!set.contains(result2)) {
-								set.add(result1);
-								context.write(new Text(), new Text(result1));
+							String result;
+							if （new BigInteger(idA).compareTo(new BigInteger(idB)) < 0) {
+								result = dataA[0] + "," + idA +"," + idB;
+							}
+							else {
+								result = dataB[0] + "," + idB +"," + idA;
+							}
+							if (!set.contains(result)) {
+								set.add(result);
+								context.write(new Text(), new Text(result));
 							}
 						}
 					}
