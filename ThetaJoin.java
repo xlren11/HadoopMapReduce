@@ -35,11 +35,11 @@ public class ThetaJoin {
 				list.add(val.toString());
 			}
 			Set<String> set = new HashSet<String>();
-			for (int i = 0; i < list.size(); ++i) {
-				for (int j = 0; j < list.size(); ++j) {
-					if (i == j) continue;
-					String [] dataA = list.get(i).split(",");
-					String [] dataB = list.get(j).split(",");
+			for (String strA: list) {
+				for (String strB: list) {
+					if (set.contains(strB)) continue;
+					String [] dataA = strA.split(",");
+					String [] dataB = strB.split(",");
 					String idA = dataA[1];
 					String idB = dataB[1];
 					if (!idA.equals(idB)){
